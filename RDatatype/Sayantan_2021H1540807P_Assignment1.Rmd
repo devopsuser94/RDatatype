@@ -1,0 +1,284 @@
+---
+title: "PFA Assignment 1: Data Types and Data Structures in R"
+author: "Sayantan Paul; Student ID: 2021H1540807P"
+date: "28/09/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Assignment 1 - Data Types and Data Structures
+
+## Assignment Author
+* Sayantan Paul | Student ID: 2021H1540807P
+
+
+
+```{r }
+library(tidyverse)
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### Exercise 1
+
+Find the class and type of 'x' in the following cases:- 
+
+1. x=22   // *Modify the code to create or declare an integer value.*  
+2. y= 2    
+   z=3  
+   x=y>z   
+3. x = 2i  
+4. x="20-09-2021"  
+
+```{r}
+x<- 22
+class(x)
+typeof(x)
+
+y<-2
+z<-3
+x<- y>z
+class(x)
+typeof(x)
+
+x<- 2i
+class(x)
+typeof(x)
+
+x="20-09-2021"
+class(x)
+typeof(x)
+```
+
+### Exercise 2
+
+1. Find the output when 1+2i is converted to character type  
+2. Find output when "ProgrammingForAnalytics" is converted to numeric type
+3. Given: x<-0:5, write code to output:  
+   [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  (and)  
+   [1] "0" "1" "2" "3" "4" "5" 
+4. Given: x<-c("a","b","c")  
+   Do all possible coercions to output [1] NA NA NA  
+       
+
+```{r}
+
+#Find the output when 1+2i is converted to character type  
+x<- as.character(1+2i)
+print(x)
+
+#Find output when "ProgrammingForAnalytics" is converted to numeric type
+x<- as.numeric("ProgrammingForAnalytics")
+print(x)
+
+#Given: x<-0:5, write code to output:  
+#[1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  (and)  
+#[1] "0" "1" "2" "3" "4" "5"
+
+x<-0:5
+
+print(as.logical(x))
+
+print(as.character(x))
+
+#Given: x<-c("a","b","c"); Do all possible coercions to output [1] NA NA NA 
+
+x<-c("a","b","c") 
+print(as.complex(x))
+print(as.logical(x))
+print(as.double(x))
+
+```
+### Exercise 3
+
+Fill the table with your understanding of Data Structures (Atomic vector, List, Dataframe, Array, Matrix)
+
+|                |   Linear |   2 Dimensional   | N Dimensional |
+|----------------|----------|-------------------|---------------|
+|**Homogenous**  |          |                   |               |
+|**Heterogenous**|          |                   |               |
+
+Answer:
+
+|                |        Linear      |   2 Dimensional   | N Dimensional |
+|----------------|--------------------|-------------------|---------------|
+|**Homogenous**  |    Atomic vector   |      Matrix       |     Array     |
+|**Heterogenous**|        List        |    Data frame     |               |
+
+```{r}
+```
+### Exercise 4
+
+Create a vector with a sequence of descending numbers from 20 to 0 in steps of 2. 
+
+(i) Write code to access all except the 2nd to 5th elements.
+(ii) Write code to access all numbers greater than 10 excluding the one at 2nd index.
+(iii) Write code to change values of all elements less than 10 to 0.
+
+```{r}
+#a vector with a sequence of descending numbers from 20 to 0 in steps of 2
+n <- seq(0,20, by = 2)
+numbers<- sort(n, decreasing = TRUE)
+print(numbers)
+
+#code to access all except the 2nd to 5th elements
+i <- numbers[-c(2,5)]
+print(i)
+
+#Write code to access all numbers greater than 10 excluding the one at 2nd index
+x<-numbers[-2]
+y <- which(x>10)
+print(x[y])
+
+#Write code to change values of all elements less than 10 to 0
+z<- which(numbers<10)
+numbers = replace(numbers,z,0)
+print(numbers)
+
+```
+### Exercise 5   
+    
+Create a matrix with 2 columns and 4 rows by passing a vector having 4 repetitions of 1 and 2 (i.e., 1,2,1,2,... use rep() command). Arrange these elements in a row-wise manner.
+
+(i) Write code to access the 2nd column of this matrix.  
+(ii) Name the columns: "c1", "c2". Name the rows: "r1", "r2", "r3", "r4".  
+(iii) Write code to access the 2nd row using its row name.  
+(iv) Delete the first row
+
+```{r}
+
+#Create a matrix with 2 columns and 4 rows by passing a vector having 4 repetitions of 1 and 2 (i.e., 1,2,1,2,... use rep() command). Arrange these elements in a row-wise manner
+y <- matrix(rep(1:2), nrow =4, ncol=2, byrow = TRUE)
+print(y)
+
+#code to access the 2nd column of this matrix
+print(y[,2])
+
+#Name the columns: "c1", "c2". Name the rows: "r1", "r2", "r3", "r4"
+rownames = c("r1", "r2", "r3","r4")
+colnames = c("c1", "c2")
+y <- matrix(rep(1:2), nrow =4, ncol=2, byrow = TRUE,dimnames = list(rownames, colnames))
+print(y)
+
+#code to access the 2nd row using its row name
+print(y["r2",])
+
+#Delete the first row
+y <- y[-1,]
+print(y)
+
+
+```
+
+### Exercise 6
+
+(i) Create a vector "V" which contains 10 random integer values between -100 and +100. (hint:)
+(ii) Create a two-dimensional 5×5 array "A" comprised of sequence of even integers greater than 25.
+(iii) Create a list "S" containing sequence of 20 capital letters, starting with ‘C’.  
+
+Create a list named "l" containing all the previously created objects. Name them "my_vector", "my_array"  and "my_list" respectively.  
+
+Without running any R command, answer the following questions pertaining to the exercise :-
+
+1. How many elements are there in the list?
+2. what is the result of l[[3]]?
+3. How would you access random-th letter in the list element "my_list"?
+4. If you convert list l to a vector, what will be the type of it’s elements?
+5. Can this list be converted to an array? What will be the data type of elements in array?
+6. How would you add a new element to this list?
+
+
+```{r}
+
+#a vector "V" which contains 10 random integer values between -100 and +100
+v <- sample(-100:100, 10, replace=TRUE)
+
+#a two-dimensional 5×5 array "A" comprised of sequence of even integers greater than 25
+a <- array(seq(from = 26, length.out = 25, by = 2), c(5, 5))
+
+#a list "S" containing sequence of 20 capital letters, starting with ‘C’
+s <- LETTERS[match("C", LETTERS):(match("C", LETTERS)+19)]
+
+#a list named "l" containing all the previously created objects. Name them "my_vector","my_array" and "my_list" respectively
+l <- list(my_vector = v, my_array = a, my_list = s)
+
+
+
+```
+
+1. How many elements are there in the list?
+Ans. 3
+
+2. what is the result of l[[3]]?
+Ans: It will start from C and take next 19 elements till V
+
+3. How would you access random-th letter in the list element "my_list"?
+Ans: l[[3]][sample(1:length(l[[3]]), 1)]
+
+4. If you convert list l to a vector, what will be the type of it’s elements?
+Ans: Character
+
+5. Can this list be converted to an array? What will be the data type of elements in array?
+Ans: Yes. Data type will be List
+
+6. How would you add a new element to this list?
+Ans: l$my_list <- append("W",l$my_list )
+
+
+### Exercise 7
+
+Write a program to create a Data Frame by passing vectors for name (character), age (integer) and vaccinated (logical). 
+
+1. Print the number of rows using dim().
+2. Write code to change the age column into complex data type.
+3. Use "as" function to check if dataframes can be coerced into other data types or data structures.
+
+```{r}
+#a program to create a Data Frame by passing vectors for name (character), age (integer) and vaccinated (logical)
+name <- c("a","b","c","d","e")
+age <- as.integer(c(25,26,27,28,29))
+vaccinated <- as.logical(c("F","T","T","F","T"))
+
+x <- data.frame(name, 
+                age, 
+                vaccinated
+                )
+x
+
+View(x) 
+#Print the number of rows using dim()
+dim(x)
+nrow(x)
+
+#code to change the age column into complex data type
+class(x)
+class(x$age) = "Complex"
+class(x$age)
+
+#Use of "as" function to check if dataframes can be coerced into other data types or data structure
+x<- lapply(x, as.vector)
+print(x)
+
+```
+
+### Exercise 8
+
+Debug the following and run the correct code  
+1. num = c(1, 2, 3, 4, 5)  
+   name = c("one", "two", "four", "five")  
+   df = data.frame(num,name)  
+   print(df)  
+2. x = c(1, "BITS", 5, 7.2, True, 1+i)  
+   print(X)
+```{r}
+num = c(1, 2, 3, 4, 5)  
+name = c("one", "two", "four", "five",NA)  
+df = data.frame(num,name,check.rows= TRUE)  
+print(df)
+
+x = c(1, "BITS", 5, 7.2, TRUE, "1+i")  
+print(x)
+
+```
